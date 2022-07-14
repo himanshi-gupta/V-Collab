@@ -1,0 +1,23 @@
+{
+  "name": "v-collab",
+  "version": "1.0.0",
+  "description": "Real time collaborative white board",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon socket.js",
+    "start": "node socket.js"
+  },
+  "author": "Himanshi Gupta",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "passport": "^0.6.0",
+    "passport-google-oauth": "^2.0.0",
+    "socket.io": "^4.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18"
+  }
+}
