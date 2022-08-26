@@ -13,7 +13,7 @@
     }
     canvas{
         box-shadow: 1px 1px 2px 2px black;
-        cursor: pointer;
+        /* cursor: pointer; */
         margin-left : 85px;
         margin-top: 15px;
         z-index: 1;
@@ -86,6 +86,14 @@
             /* color: #3a3939; */
             /* display:; */
         }
+
+        .text-button{
+            font-size: 20px;
+            width: 30px;
+            margin-left: 15px;
+            margin-top: 20px;
+            text-decoration: none;
+        }
         @media screen and (max-height: 450px) {
         .sidenav {padding-top: 15px;}
         .sidenav a {font-size: 18px;}
@@ -96,19 +104,21 @@
     <script src="https://kit.fontawesome.com/7bc2652f8e.js" crossorigin="anonymous"></script>
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <i class="fa-solid fa-pen"></i>
+            <i class="fa-solid fa-pen" onclick="addDraw()"></i>
             <i class="fa-solid fa-eraser"></i>
-            <i class="fa-solid fa-arrow-pointer"></i>
+            <i class="fa-solid fa-arrow-pointer" onclick="onPointer()"></i>
             <input type="color" class="color-picker" oninput="changeColor(this.value)">
-            <input type="file" id="loadImage" hidden>
-            <label for="loadImage"><i class="fa-solid fa-image" onclick="loadImage()"></i></label>
-            <!-- <i class="fa-regular fa-text"></i> -->
+            <input type="file" id="loadImage"  accept="image/*"  hidden>
+            <label for="loadImage"><i class="fa-solid fa-image" onclick="loadImage(this.value)"></i></label>
+            <button class="text-button" onclick="addText()"><strong>T</strong></button>
+            <!-- <i class="fa-solid fa-text" onclick="addText()"><button>T</button></i> -->
             <!-- <i class="fa-regular fa-draw-square"></i> -->
             <!-- <i class="fa-regular fa-circle"></i> -->
         </div>
         <span>
             <span style="font-size:30px;cursor:pointer" id="openButton" onclick="openNav()">&#9776;</span>
             <button id="clearButton" onclick="clearCanvas()">Clear Canvas</button>
+            <a id="canvas-image" href="" onclick="downloadCanvas(this)" download=""><button>Download</button></a>
         </span>
         <canvas id="canvas"></canvas>
     <script src="./script.js"></script> 

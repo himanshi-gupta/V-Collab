@@ -14,6 +14,7 @@ io.on("connect" , (socket) => {
 
     connections.forEach(con =>{
         if(con.id == socket.id){
+            // console.log("on new connection ",drawnData);
             if(drawnData.length>0)
                 con.emit('onsave', drawnData[ctxIndex]);
                 // for(let index=0 ; index<drawnData.length ; index++){
@@ -43,10 +44,46 @@ io.on("connect" , (socket) => {
         });
     });
 
-    socket.on('save', (data) => {
-        console.log(drawnData)
+    socket.on("keydown", (data) => {
+        // drawnData.push(['down', data.x, data.y, data.color, data.width]);
+        connections.forEach(con => {
+            if(con.id !==socket.id){
+                con.emit('onkeydown' ,{x : data.x , y : data.y, color : data.color, width : data.width});
+            }
+        });
+    });
+
+    socket.on("up", (data) => {
+        // drawnData.push(['down', data.x, data.y, data.color, data.width]);
+        console.log(data);
         drawnData.push(data);
         ctxIndex+=1;
+        console.log("ji");
+        connections.forEach(con => {
+            if(con.id !==socket.id){
+                con.emit('onup');
+            }
+        });
+    });
+
+    socket.on("keyup", (data) => {
+        // drawnData.push(['down', data.x, data.y, data.color, data.width]);
+        console.log(data);
+        drawnData.push(data);
+        ctxIndex+=1;
+        console.log("ji");
+        connections.forEach(con => {
+            if(con.id !==socket.id){
+                con.emit('onkeyup');
+            }
+        });
+    });
+
+    socket.on('save', (data) => {
+        console.log(drawnData);
+        drawnData.push(data);
+        ctxIndex+=1;
+        console.log("save",drawnData);
         // connections.forEach(con =>{
         //     if(con.id !==socket.id)
         //         con.emit("onsave",data);
@@ -58,9 +95,14 @@ io.on("connect" , (socket) => {
     socket.on('clear',() => {
         // drawnData=[];
         connections.forEach(con => {
+            if(con.id !==socket.id){
+                console.log('hh')
                 con.emit('onclear');
+                
+            }
         });
     })
+
     socket.on("disconnect" , (reason) => {
         console.log(`${socket.id} is disconnected`);
         connections = connections.filter((con) => con.id!==socket.id);
